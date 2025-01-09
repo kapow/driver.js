@@ -106,6 +106,7 @@ export function renderPopover(element: Element, step: DriveStep) {
 
   if (showFooter) {
     popover.footer.style.display = "flex";
+    popover.footer.style.justifyItems = "space-between";
 
     popover.progress.style.display = showProgressConfig ? "block" : "none";
     popover.nextButton.style.display = showButtonsConfig.includes("next") ? "block" : "none";
@@ -626,6 +627,9 @@ function createPopover(): PopoverDOM {
 
   const footerButtons = document.createElement("span");
   footerButtons.classList.add("driver-popover-navigation-btns");
+  footerButtons.style.display = "flex";
+  footerButtons.style.flexDirection = "row-reverse";
+  footerButtons.style.flexGrow = "0";
 
   const previousButton = document.createElement("button");
   previousButton.type = "button";
@@ -637,8 +641,9 @@ function createPopover(): PopoverDOM {
   nextButton.classList.add("driver-popover-next-btn");
   nextButton.innerHTML = "Next &rarr;";
 
-  footerButtons.appendChild(previousButton);
+  // reversed order so first keyboard focusable button is Next
   footerButtons.appendChild(nextButton);
+  footerButtons.appendChild(previousButton);
   footer.appendChild(progress);
   footer.appendChild(footerButtons);
 
